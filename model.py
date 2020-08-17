@@ -6,9 +6,9 @@ PRAVILEN_UGIB_PRAZNEGA_POLJA = 'p'
 
 class Igra:
 
-    def __init__(self, ugibi_min, ugibi_nemin, polja_z_minami):
+    def __init__(self, ugibi_min, slovar_ugibov_nemin, polja_z_minami):
         self.ugibi_min = ugibi_min
-        self.ugibi_nemin = ugibi_nemin
+        self.slovar_ugibov_nemin = {}
         self.polja_z_minami = polja_z_minami
 
     def pravilni_ugibi_min(self):
@@ -20,7 +20,7 @@ class Igra:
 
     def pravilni_ugibi_nemin(self):
         seznam = []
-        for ugib in self.ugibi_nemin:
+        for ugib in self.slovar_ugibov_nemin.keys():
             if ugib not in self.polja_z_minami:
                 seznam.append(ugib)
         return seznam
@@ -36,7 +36,7 @@ class Igra:
         return len(self.polja_z_minami) - len(self.pravilni_ugibi_min()) - len(self.napacni_ugibi_min())
 
     def poraz(self):
-        for ugib in self.ugibi_nemin:
+        for ugib in self.slovar_ugibov_nemin.keys():
             if ugib in self.polja_z_minami:
                 return True
         else:
@@ -56,25 +56,6 @@ class Igra:
         else:
             return NAPAČEN_UGIB_MINE
 
-    def ugibaj_nemino(self, polje):
-        self.ugibi_nemin.append(polje)
-        if self.poraz():
-            return PORAZ
-        elif polje not in self.polja_z_minami:
-            stevilo_okoliskih_min = self.prestej_okoliske_mine(polje)
-            if stevilo_okoliskih_min > 0:
-                return PRAVILEN_UGIB_PRAZNEGA_POLJA
-            else:
-                slovar_okoliskih_polj = self.pokazi_okoliska_polja(polje)
-                for polje1 in slovar_okoliskih_polj:
-                    if slovar_okoliskih_polj[polje1] > 0:
-                        pass
-                    else:
-                        self.ugibaj_nemino(polje1)
-                return PRAVILEN_UGIB_PRAZNEGA_POLJA
-
-
-
     def prestej_okoliske_mine(self, polje):
         vrstica = polje[0]
         stolpec = polje[1]
@@ -86,6 +67,23 @@ class Igra:
                         stevilo_okoliskih_min += 1
         return stevilo_okoliskih_min
 
+    def ugibaj_nemino(self, polje):
+        okoliske_mine = self.prestej_okoliske_mine(polje)
+        self.slovar_ugibov_nemin[polje] = okoliske_mine
+        if self.poraz():
+            return PORAZ
+        else:
+            stevilo_okoliskih_min = self.prestej_okoliske_mine(polje)
+            if stevilo_okoliskih_min > 0:
+                return PRAVILEN_UGIB_PRAZNEGA_POLJA
+            else:
+                slovar_okoliskih_polj = self.pokazi_okoliska_polja(polje)
+                for polje1 in slovar_okoliskih_polj:
+                    if polje1 not in self.slovar_ugibov_nemin:
+                        self.ugibaj_nemino(polje1)
+                    else:
+                        pass
+                return PRAVILEN_UGIB_PRAZNEGA_POLJA
 
     def pokazi_okoliska_polja(self, polje):
         vrstica = polje[0]
@@ -110,6 +108,7 @@ def nova_igra():
     ugibi_nemin = []
     polja_z_minami = []
     while len(polja_z_minami) < 10:
-        if nakljucno_polje() not in polja_z_minami:
-            polja_z_minami.append(nakljucno_polje())
+        polje = nakljucno_polje()
+        if polje not in polja_z_minami:
+            polja_z_minami.append(polje)
     return Igra(ugibi_min, ugibi_nemin, polja_z_minami)
