@@ -1,0 +1,31 @@
+% rebase('osnova.html')
+<style>
+    #nemina {
+        margin-left: auto;
+        margin-top: 50px;
+        margin-right: auto;
+        margin-bottom: 20px;
+        height: 80px;
+        width: 180px;
+    }
+    #mina {
+        margin-right: auto;
+        margin-top: 50px;
+        margin-left: auto;
+        height: 80px;
+        width: 180px;
+    }
+    h1 {
+        margin-top: 50px;
+    }
+</style>
+
+<h1>Je po vašem mnenju to polje prazno, ali se na njem nahaja mina?</h1>
+
+<form action='/ugibanje_nemine/' id='nemina'>
+    <input type='submit' value="PRAZNO POLJE" id='nemina'>
+</form>
+
+<form action='/ugibanje_mine/' id='mina'>
+    <input type='submit' value="MINA" id="mina">
+</form>
