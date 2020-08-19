@@ -59,15 +59,15 @@ def ugibanje_mine():
         stolpec = polje1[1]
     polje = (vrstica, stolpec)
     trenuten_rezultat = igra1.ugibaj_mino(polje)
-    if trenuten_rezultat == 'w':
-        print(trenuten_rezultat)
-        return bottle.template('zmaga.html')
-    else:
-        seznam = igra1.ugibi_min
-        slovar = igra1.slovar_ugibov_nemin
-        stevilo_min = igra1.stevilo_preostalih_min()
+    seznam = igra1.ugibi_min
+    slovar = igra1.slovar_ugibov_nemin
+    stevilo_min = igra1.stevilo_preostalih_min()
+    if trenuten_rezultat == '+' or trenuten_rezultat == '-':
         zgeneriraj_novo_polje.prepisi_v_datoteko(slovar, seznam,stevilo_min)
         return bottle.template('tabela.html')
+    else:
+        return bottle.template('zmaga.html')
+        
        
 
 bottle.run(debug=True, reloader=True)
