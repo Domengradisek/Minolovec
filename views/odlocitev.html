@@ -2,7 +2,7 @@
 <style>
     #nemina {
         margin-left: auto;
-        margin-top: 50px;
+        margin-top: 10px;
         margin-right: auto;
         margin-bottom: 20px;
         height: 80px;
@@ -10,7 +10,7 @@
     }
     #mina {
         margin-right: auto;
-        margin-top: 50px;
+        margin-top: 10px;
         margin-left: auto;
         height: 80px;
         width: 180px;
@@ -18,14 +18,26 @@
     h1 {
         margin-top: 50px;
     }
+    img {
+        margin-top: 20px;
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
 
 <h1>Je po vašem mnenju to polje prazno, ali se na njem nahaja mina?</h1>
 
+<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Emoji_Icon_-_Thinking_grande.png?v=1571606093" alt="razmisljnanje" id="odlocitev">
+
 <form action='/ugibanje_nemine/' id='nemina'>
-    <input type='submit' value="PRAZNO POLJE" id='nemina'>
+    <input type='submit' value="PRAZNO POLJE" id='nemina' style="font-size : 20px">
 </form>
 
+<img src="https://lh3.googleusercontent.com/9rycf89uVflWQHRgAZm4P8GvT5Kpzzsoo77EWjDew0DiMhz3YmZhis5mgiWWWov5lUOr" alt="mina" id="odlocitev">
+
 <form action='/ugibanje_mine/' id='mina'>
-    <input type='submit' value="MINA" id="mina">
+    <input type='submit' value="MINA" id="mina" style="font-size : 20px">
 </form>
