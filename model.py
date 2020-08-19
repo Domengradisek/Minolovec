@@ -43,7 +43,13 @@ class Igra:
             return False
 
     def zmaga(self):
-        return self.pravilni_ugibi_min() == self.polja_z_minami
+        if len(self.ugibi_min) == len(self.polja_z_minami):
+            for ugib in self.ugibi_min:
+                if ugib not in self.polja_z_minami:
+                    return False
+            return True
+        else:
+            return False
 
     def ugibaj_mino(self, polje):
         self.ugibi_min.append(polje)
